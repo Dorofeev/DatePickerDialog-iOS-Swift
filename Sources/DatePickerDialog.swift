@@ -298,7 +298,13 @@ open class DatePickerDialog: UIView {
 
     @objc func buttonTapped(sender: UIButton) {
         if sender.tag == kDoneButtonTag {
-            self.callback?(self.datePicker.date)
+            if datePickerMode == .countDownTimer {
+                self.callback?(
+                    Date(timeIntervalSinceReferenceDate: self.datePicker.countDownDuration)
+                )
+            } else {
+                self.callback?(self.datePicker.date)
+            }
         } else {
             self.callback?(nil)
         }
